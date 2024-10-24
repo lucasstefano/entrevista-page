@@ -225,6 +225,7 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 8px;
   font-size: 18px;
+  font-weight: 800;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   margin-top: 20px;
