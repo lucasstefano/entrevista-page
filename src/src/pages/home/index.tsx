@@ -58,9 +58,9 @@ const questions: Question[] = [
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "* Qual foi sua maior dificuldade e facilidade?", subinfo: '' },
-            { text: "* Como foi escrever a resolução de case?", subinfo: '' },
-            { text: "* Você usou alguma ferramenta para te auxiliar?", subinfo: '' },
+            { text: "a) Qual foi sua maior dificuldade e facilidade?", subinfo: '' },
+            { text: "b) Como foi escrever a resolução de case?", subinfo: '' },
+            { text: "c) Você usou alguma ferramenta para te auxiliar?", subinfo: '' },
         ],
     },
     {
@@ -73,7 +73,7 @@ const questions: Question[] = [
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "* Qual a ideia que você tem da EJCM e do Movimento Empresa Júnior?", subinfo: '' },
+            { text: "a) Qual a ideia que você tem da EJCM e do Movimento Empresa Júnior?", subinfo: '' },
         ],
     },
     {
@@ -81,7 +81,7 @@ const questions: Question[] = [
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "* Como a EJCM te ajudaria com esses objetivos?", subinfo: '(Foco no resultado)' },
+            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '(Foco no resultado)' },
         ],
     },
     {
@@ -89,8 +89,8 @@ const questions: Question[] = [
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "* Em qual você acha que poderia se desenvolver mais?", subinfo: '' },
-            { text: "* Por Que?", subinfo: '' },
+            { text: "a) Em qual você acha que poderia se desenvolver mais?", subinfo: '' },
+            { text: "b) Por Que?", subinfo: '' },
         ],
     },
     {
@@ -103,7 +103,7 @@ const questions: Question[] = [
         section: "TEAM BUILDING",
         info: "",
         subQuestions: [
-            { text: "* Como a EJCM te ajudaria com esses objetivos?", subinfo: '' },
+            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '' },
         ],
     },
     {
@@ -111,16 +111,16 @@ const questions: Question[] = [
         section: "TEAM BUILDING",
         info: "(Comunicação, habilidade para ouvir, pedir feedback)",
         subQuestions: [
-            { text: "* Você concorda com essa percepção?", subinfo: '' },
-            { text: "* Por que?", subinfo: '' },
-            { text: "* Como isso te afeta?", subinfo: '' },
+            { text: "a) Você concorda com essa percepção?", subinfo: '' },
+            { text: "b) Por que?", subinfo: '' },
+            { text: "c) Como isso te afeta?", subinfo: '' },
         ],
     },
     {
         text: "9) Qual foi o melhor chefe/professor/figura de autoridade que você já teve?",
         section: "TEAM BUILDING",
         info: "",
-        subQuestions: [{ text: "* Como ele(a) era?", subinfo: '(Percepção sobre liderança)' }],
+        subQuestions: [{ text: "a) Como ele(a) era?", subinfo: '(Percepção sobre liderança)' }],
     },
     {
         text: "10) Conte-me uma situação em que você contribuiu com suas próprias ideias ou atitudes, sem receber instruções.",
