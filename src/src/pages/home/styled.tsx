@@ -167,7 +167,7 @@ export const SubTextAreaInput = styled(InputBase.withComponent('textarea'))`
   height: 180px;
   margin-top: 5px;
   resize: none;
-  margin-left: 20px;
+  margin-left: 30px;
 
   @media (max-width: 968px) {
     height: 100px;

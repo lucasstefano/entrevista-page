@@ -85,12 +85,21 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 6) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
+        text: 'Pergunta 6',
+        section: "FIT CULTURAL",
+        info: "",
+        subQuestions: [
+            { text: "* Em qual você acha que poderia se desenvolver mais?", subinfo: '' },
+            { text: "* Por Que?", subinfo: '' },
+        ],
+    },
+    {
+        text: "Pergunta 7) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
         section: "TEAM BUILDING",
         info: "(Análise e solução de problemas, visão sistêmica)",
     },
     {
-        text: "Pergunta 7) Quais são seus objetivos de vida?",
+        text: "Pergunta 8) Quais são seus objetivos de vida?",
         section: "TEAM BUILDING",
         info: "",
         subQuestions: [
@@ -311,7 +320,9 @@ export default function Questionnaire() {
                             <QuestionBlock key={questionIndex}>
                                 <QuestionTextWrapper>
                                     <QuestionText>
-                                        {question.text}
+                                        {question.text === 'Pergunta 6' ? (
+                                            <>Pergunta 6) Dado os nossos valores:<br/><br/>•Comprometimento com os resultados<br/> •Entregar soluções de impacto<br/> •Responsabilidade ético-social<br/> •Promover diversidade e inclusão<br/> •Compartilhar conhecimentos<br/> •Crescimento conjunto e empático<br/> •Orgulho de Ser Samurai<br/><br/> Em qual deles você mais se reconhece?</>
+                                        ):(question.text)}
                                         {question.info !== '' ? (
                                             <InfoText>{question.info}</InfoText>
                                         ) : (null)}
@@ -327,15 +338,7 @@ export default function Questionnaire() {
                                         onChange={(e) => handleChange(sectionIndex, questionIndex, e.target.value)}
                                     />
                                 )}
-                                {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
-                                    <div style={{ marginBottom: '10px' }}>
-                                        <ImportText>Pontos Principais:<br />
-                                            •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
-                                            •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
-                                            •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
-                                            •Política de avisar se for dar ruim</ImportText>
-                                    </div>
-                                )}
+                        
                                 {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
                                     <div key={subIndex}>
                                         <QuestionText>{subQuestion.text}
@@ -352,8 +355,19 @@ export default function Questionnaire() {
                                                 value={subResponses[sectionIndex]?.[subIndex] || ''}
                                                 onChange={(e) => handleSubChange(sectionIndex, subIndex, e.target.value)}
                                             />)}
+                                             {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
+                                    <div style={{ marginBottom: '10px' }}>
+                                        <ImportText>Pontos Principais:<br />
+                                            •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
+                                            •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
+                                            •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
+                                            •Política de avisar se for dar ruim</ImportText>
                                     </div>
+                                )}
+                                    </div>
+                                    
                                 ))}
+
                             </QuestionBlock>
                         ))}
                         {sectionIndex < Object.keys(groupedQuestions).length - 1 && <HorizontalDivider />}
