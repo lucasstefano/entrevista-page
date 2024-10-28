@@ -8,13 +8,16 @@ export const AppScreen = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-  height: 100vh;
+  height: 100vh;  /* Isso pode ser mantido */
+
   position: relative;
 
   @media (max-width: 968px) {
     flex-direction: column;
+    overflow-y: auto; /* Permite rolagem quando a tela é menor */
   }
 `;
+
 
 export const Sidebar = styled.div`
   width: 60px;
@@ -54,13 +57,16 @@ export const RightSidebar = styled(Sidebar)`
 export const ContentContainer = styled.div`
   padding: 20px;
   background-color: #ffffff;
-  width: 900px;
-
+  width: 900px; /* Manter largura fixada para telas maiores */
+  max-width: 100%; /* Para garantir que não exceda a tela em telas menores */
+height: 100vh;
   @media (max-width: 968px) {
-    width: 100%;
+    width: 90%;
     padding: 10px;
+   
   }
 `;
+
 
 export const SectionHeader = styled.h2`
   margin: 30px 0 10px;
@@ -103,7 +109,22 @@ export const CandidateNameContainer = styled.div`
   margin: 20px 0;
 
   @media (max-width: 968px) {
+    flex-direction: row;
+    width: 97%;
+  }
+`;
+export const SenseiNameContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 20px 0;
+  gap: 20px;
+
+  @media (max-width: 968px) {
     flex-direction: column;
+    flex-direction: row;
+    width: 100%;
   }
 `;
 
@@ -124,10 +145,29 @@ export const TextInput = styled(InputBase)`
   }
 `;
 
+export const TextInputSecond = styled(InputBase)`
+  height: 20px;
+  margin-left: 10px;
+
+  @media (max-width: 968px) {
+    height: 40px;
+  }
+`;
+
 export const TextAreaInput = styled(InputBase.withComponent('textarea'))`
   height: 180px;
   margin-top: 5px;
   resize: none;
+
+  @media (max-width: 968px) {
+    height: 100px;
+  }
+`;
+export const SubTextAreaInput = styled(InputBase.withComponent('textarea'))`
+  height: 180px;
+  margin-top: 5px;
+  resize: none;
+  margin-left: 20px;
 
   @media (max-width: 968px) {
     height: 100px;
@@ -200,6 +240,16 @@ export const QuestionText = styled.p`
     font-size: 16px;
   }
 `;
+export const InfoText = styled.p`
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #D90031;
+
+  @media (max-width: 968px) {
+    font-size: 16px;
+  }
+`;
 
 export const CandidateNameText = styled.p`
   font-size: 18px;
@@ -212,6 +262,25 @@ export const CandidateNameText = styled.p`
     width: auto;
     font-size: 16px;
   }
+`;
+export const IntroduceText = styled.p`
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #001238;
+
+  @media (max-width: 968px) {
+    width: auto;
+    font-size: 16px;
+  }
+`;
+export const IntroduceTextRed = styled.p`
+display: inline;
+  color: #D90031;
+`;
+
+export const IntroduceContainer = styled.div`
+  width: 100%;
 `;
 
 export const SubmitButton = styled.button`

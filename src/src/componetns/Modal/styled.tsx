@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import backgroundImage from '../../assets/BG.svg';
 
 export const Overlay = styled.div`
     position: fixed;
@@ -11,6 +12,20 @@ export const Overlay = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1000;
+`;
+
+
+
+export const Topbar = styled.div`
+position: absolute;
+z-index: 100;
+width: 100px;
+height: 20px;
+background-color: red;
+
+  @media (max-width: 968px) {
+    height: auto;
+  }
 `;
 
 export const ModalContainer = styled.div`
