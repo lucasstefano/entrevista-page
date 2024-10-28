@@ -308,8 +308,8 @@ export default function Questionnaire() {
 
                 <IntroduceContainer>
                     <IntroduceText>
-                        Oi, <IntroduceTextRed>{candidato}</IntroduceTextRed>! Tudo bem? Bem-vinda(o) à entrevista. Pode ficar à vontade.
-                        Eu me chamo <IntroduceTextRed>{entrevistador}</IntroduceTextRed> e vou ser seu(sua) entrevistador(a) hoje. Esse(a) é <IntroduceTextRed>{observador}</IntroduceTextRed>, o(a) observador(a) que vai ajudar a fazer anotações.
+                        Oi, <IntroduceTextRed>{candidato === '' ? ('XXXXXXX'):(candidato)}</IntroduceTextRed>! Tudo bem? Bem-vinda(o) à entrevista. Pode ficar à vontade.
+                        Eu me chamo <IntroduceTextRed>{entrevistador === '' ? ('XXXXXX'):(entrevistador)}</IntroduceTextRed> e vou ser seu(sua) entrevistador(a) hoje. Esse(a) é <IntroduceTextRed>{observador === '' ?('XXXXXX'):(observador)}</IntroduceTextRed>, o(a) observador(a) que vai ajudar a fazer anotações.
                         <br /> <br />
                         A gente vai começar a entrevista, então pode ficar tranquila(o)! É pra gente levar como se fosse uma conversa. Essa é uma oportunidade para você mostrar um pouco sobre você. Agora que você já conhece a gente, é a nossa vez de te conhecer melhor. Podemos começar?
                     </IntroduceText>
