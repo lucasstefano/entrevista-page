@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "/entrevista-page/static/css/main.7587c049.css",
-    "main.js": "/entrevista-page/static/js/main.006bd1cc.js",
+    "main.js": "/entrevista-page/static/js/main.8528e5a1.js",
     "static/js/453.8ab44547.chunk.js": "/entrevista-page/static/js/453.8ab44547.chunk.js",
     "static/js/239.fcaddd2b.chunk.js": "/entrevista-page/static/js/239.fcaddd2b.chunk.js",
     "static/js/213.627943c0.chunk.js": "/entrevista-page/static/js/213.627943c0.chunk.js",
     "static/js/732.be0d18e9.chunk.js": "/entrevista-page/static/js/732.be0d18e9.chunk.js",
     "static/media/BG.svg": "/entrevista-page/static/media/BG.ebb8cf3b0c84f7f6a499961e449ef946.svg",
+    "static/media/TopBG.svg": "/entrevista-page/static/media/TopBG.95aab448ebc1b8d21e2e101adf58d8de.svg",
     "static/media/Logo.svg": "/entrevista-page/static/media/Logo.80b79ceced1b0fdbde77b502d1f9fbc4.svg",
     "static/media/poppins-latin-400-normal.woff": "/entrevista-page/static/media/poppins-latin-400-normal.1458587c0aa7cd06b82b.woff",
     "static/media/poppins-latin-400-normal.woff2": "/entrevista-page/static/media/poppins-latin-400-normal.405055dd680fa1dcdfa2.woff2",
@@ -14,7 +15,7 @@
     "static/media/poppins-latin-ext-400-normal.woff2": "/entrevista-page/static/media/poppins-latin-ext-400-normal.6f94f40f848d79872444.woff2",
     "index.html": "/entrevista-page/index.html",
     "main.7587c049.css.map": "/entrevista-page/static/css/main.7587c049.css.map",
-    "main.006bd1cc.js.map": "/entrevista-page/static/js/main.006bd1cc.js.map",
+    "main.8528e5a1.js.map": "/entrevista-page/static/js/main.8528e5a1.js.map",
     "453.8ab44547.chunk.js.map": "/entrevista-page/static/js/453.8ab44547.chunk.js.map",
     "239.fcaddd2b.chunk.js.map": "/entrevista-page/static/js/239.fcaddd2b.chunk.js.map",
     "213.627943c0.chunk.js.map": "/entrevista-page/static/js/213.627943c0.chunk.js.map",
@@ -22,6 +23,6 @@
   },
   "entrypoints": [
     "static/css/main.7587c049.css",
-    "static/js/main.006bd1cc.js"
+    "static/js/main.8528e5a1.js"
   ]
 }
