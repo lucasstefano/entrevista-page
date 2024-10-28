@@ -98,6 +98,7 @@ export const StyTextBold = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   color: #001238;
+  margin-top: 40px;
 
   @media (max-width: 968px) {
     font-size: 16px;
