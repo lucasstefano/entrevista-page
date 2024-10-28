@@ -15,7 +15,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalContainer = styled.div`
     background: white;
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
     border-radius: 8px;
     max-width: 500px;
     width: 100%;
@@ -45,8 +45,8 @@ export const CloseButton = styled.button`
 `;
 
 export const SubmitButton = styled.button`
-  width: 148px;
-  height: 40px;
+  width: 128px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +54,7 @@ export const SubmitButton = styled.button`
   color: #f4f4f4;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 800;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
@@ -98,7 +98,7 @@ export const StyTextBold = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   color: #001238;
-  margin-top: 40px;
+  margin-top: 20px;
 
   @media (max-width: 968px) {
     font-size: 16px;

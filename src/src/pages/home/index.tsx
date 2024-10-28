@@ -49,12 +49,12 @@ type Question = {
 
 const questions: Question[] = [
     {
-        text: "Pergunta 1) Se apresenta pra gente, me conta um pouco sobre você.",
+        text: "1) Se apresenta pra gente, me conta um pouco sobre você.",
         section: "FIT CULTURAL",
         info: "(comunicação, raciocínio lógico, visão sistêmica, persuasão) [Identifique na fala do candidato e pergunte se for preciso se ele aparenta ter boa gestão das atividades e se tem disponibilidade de 20h semanais para dedicação na EJCM]",
     },
     {
-        text: "Pergunta 2) O que você achou de participar do dia de dinâmicas?",
+        text: "2) O que você achou de participar do dia de dinâmicas?",
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
@@ -64,12 +64,12 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 3) Qual sua motivação para fazer parte da EJCM?",
+        text: "3) Qual sua motivação para fazer parte da EJCM?",
         section: "FIT CULTURAL",
         info: "",
     },
     {
-        text: "Pergunta 4) Você já conhecia a EJCM ou o Movimento Empresa Júnior, o MEJ?",
+        text: "4) Você já conhecia a EJCM ou o Movimento Empresa Júnior, o MEJ?",
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
@@ -77,7 +77,7 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?",
+        text: "5) Quais são seus objetivos de vida em longo e curto prazo?",
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
@@ -85,7 +85,7 @@ const questions: Question[] = [
         ],
     },
     {
-        text: 'Pergunta 6',
+        text: '6)',
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
@@ -94,12 +94,12 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 7) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
+        text: "7) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
         section: "TEAM BUILDING",
         info: "(Análise e solução de problemas, visão sistêmica)",
     },
     {
-        text: "Pergunta 8) Quais são seus objetivos de vida?",
+        text: "8) Quais são seus objetivos de vida?",
         section: "TEAM BUILDING",
         info: "",
         subQuestions: [
@@ -107,7 +107,7 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 8) Como as pessoas te enxergam?",
+        text: "8) Como as pessoas te enxergam?",
         section: "TEAM BUILDING",
         info: "(Comunicação, habilidade para ouvir, pedir feedback)",
         subQuestions: [
@@ -117,33 +117,33 @@ const questions: Question[] = [
         ],
     },
     {
-        text: "Pergunta 9) Qual foi o melhor chefe/professor/figura de autoridade que você já teve?",
+        text: "9) Qual foi o melhor chefe/professor/figura de autoridade que você já teve?",
         section: "TEAM BUILDING",
         info: "",
         subQuestions: [{ text: "* Como ele(a) era?", subinfo: '(Percepção sobre liderança)' }],
     },
     {
-        text: "Pergunta 10) Conte-me uma situação em que você contribuiu com suas próprias ideias ou atitudes, sem receber instruções.",
+        text: "10) Conte-me uma situação em que você contribuiu com suas próprias ideias ou atitudes, sem receber instruções.",
         section: "TEAM BUILDING",
         info: "(Proatividade, atitude empreendedora)",
     },
     {
-        text: "Pergunta 11) O que diversidade e inclusão significam para você e qual a importância disso?",
+        text: "11) O que diversidade e inclusão significam para você e qual a importância disso?",
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
-        text: "Pergunta 12) Qual sua opinião sobre trabalhar em um ambiente diversificado?",
+        text: "12) Qual sua opinião sobre trabalhar em um ambiente diversificado?",
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
-        text: "Pergunta 13) Diante de um comentário racista ou homofóbico dentro da empresa, qual é a sua reação?",
+        text: "13) Diante de um comentário racista ou homofóbico dentro da empresa, qual é a sua reação?",
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
-        text: "Pergunta 14) Por que você acha que deveria ser aprovado?",
+        text: "14) Por que você acha que deveria ser aprovado?",
         section: "PARA FINALIZAR",
         info: "(Persuasão, autoconfiança)",
     },
@@ -320,7 +320,7 @@ export default function Questionnaire() {
                             <QuestionBlock key={questionIndex}>
                                 <QuestionTextWrapper>
                                     <QuestionText>
-                                        {question.text === 'Pergunta 6' ? (
+                                        {question.text === '6)' ? (
                                             <>Pergunta 6) Dado os nossos valores:<br/><br/>•Comprometimento com os resultados<br/> •Entregar soluções de impacto<br/> •Responsabilidade ético-social<br/> •Promover diversidade e inclusão<br/> •Compartilhar conhecimentos<br/> •Crescimento conjunto e empático<br/> •Orgulho de Ser Samurai<br/><br/> Em qual deles você mais se reconhece?</>
                                         ):(question.text)}
                                         {question.info !== '' ? (
@@ -340,7 +340,7 @@ export default function Questionnaire() {
                                 )}
                         
                                 {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
-                                    <div key={subIndex}>
+                                    <div key={subIndex} style={{marginLeft:30}}>
                                         <QuestionText>{subQuestion.text}
                                             {subQuestion.subinfo !== '' ? (
                                                 <InfoText>{subQuestion.subinfo}</InfoText>
