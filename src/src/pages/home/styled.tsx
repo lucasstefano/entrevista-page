@@ -240,6 +240,16 @@ export const QuestionText = styled.p`
     font-size: 16px;
   }
 `;
+export const ImportText = styled.p`
+  font-size: 22px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #001238;
+
+  @media (max-width: 968px) {
+    font-size: 16px;
+  }
+`;
 export const InfoText = styled.p`
   font-size: 18px;
   font-family: 'Poppins', sans-serif;
