@@ -16,12 +16,13 @@ export const Overlay = styled.div`
 
 
 
-export const Topbar = styled.div`
+export const Topbar = styled.image`
 position: absolute;
-z-index: 100;
-width: 100px;
-height: 20px;
-background-color: red;
+  background-color: #22A2F2;
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+  top: 0;
 
   @media (max-width: 968px) {
     height: auto;

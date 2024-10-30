@@ -31,119 +31,141 @@ import {
     SubTextAreaInput,
     InfoText,
     ImportText,
+    SessaoDiv,
+    SubQuestionBar,
+    SubLeftBar,
+    QuestionTextPDF,
+    ResponseGenerate,
 } from './styled';
 import WarnignModal from '../../componetns/Aviso';
 import Modal from '../../componetns/Modal';
 
 interface SubQuestion {
     text: string;
-    subinfo: string
+    subinfo: string;
+    help: string;
 }
 
 type Question = {
     text: string;
     section: string;
     info: string;
-    subQuestions?: { text: string, subinfo: string }[];
+    help: string;
+    subQuestions?: { text: string, subinfo: string, help: string }[];
 };
 
 const questions: Question[] = [
     {
         text: "1) Se apresenta pra gente, me conta um pouco sobre você.",
         section: "FIT CULTURAL",
+        help: '',
         info: "(comunicação, raciocínio lógico, visão sistêmica, persuasão) [Identifique na fala do candidato e pergunte se for preciso se ele aparenta ter boa gestão das atividades e se tem disponibilidade de 20h semanais para dedicação na EJCM]",
     },
     {
         text: "2) O que você achou de participar do dia de dinâmicas?",
+        help: '',
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "a) Qual foi sua maior dificuldade e facilidade?", subinfo: '' },
-            { text: "b) Como foi escrever a resolução de case?", subinfo: '' },
-            { text: "c) Você usou alguma ferramenta para te auxiliar?", subinfo: '' },
+            { text: "a) Qual foi sua maior dificuldade e facilidade?", subinfo: '', help: '' },
+            { text: "b) Como foi escrever a resolução de case?", subinfo: '', help: '' },
+            { text: "c) Você usou alguma ferramenta para te auxiliar?", subinfo: '', help: '' },
         ],
     },
     {
         text: "3) Qual sua motivação para fazer parte da EJCM?",
+        help: '',
         section: "FIT CULTURAL",
         info: "",
     },
     {
         text: "4) Você já conhecia a EJCM ou o Movimento Empresa Júnior, o MEJ?",
+        help: '',
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "a) Qual a ideia que você tem da EJCM e do Movimento Empresa Júnior?", subinfo: '' },
+            { text: "a) Qual a ideia que você tem da EJCM e do Movimento Empresa Júnior?", subinfo: '', help: '' },
         ],
     },
     {
         text: "5) Quais são seus objetivos de vida em longo e curto prazo?",
+        help: '',
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '(Foco no resultado)' },
+            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '(Foco no resultado)', help: '', },
         ],
     },
     {
         text: '6)',
+        help: 'Ai Papapi',
         section: "FIT CULTURAL",
         info: "",
         subQuestions: [
-            { text: "a) Em qual você acha que poderia se desenvolver mais?", subinfo: '' },
-            { text: "b) Por Que?", subinfo: '' },
+            { text: "a) Em qual você acha que poderia se desenvolver mais?", subinfo: '', help: '' },
+            { text: "b) Por Que?", subinfo: '', help: '' },
         ],
     },
     {
         text: "7) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
+        help: '',
         section: "TEAM BUILDING",
         info: "(Análise e solução de problemas, visão sistêmica)",
     },
     {
         text: "8) Quais são seus objetivos de vida?",
+        help: '',
         section: "TEAM BUILDING",
         info: "",
         subQuestions: [
-            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '' },
+            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '', help: '' },
         ],
     },
     {
         text: "8) Como as pessoas te enxergam?",
+        help: '',
         section: "TEAM BUILDING",
         info: "(Comunicação, habilidade para ouvir, pedir feedback)",
         subQuestions: [
-            { text: "a) Você concorda com essa percepção?", subinfo: '' },
-            { text: "b) Por que?", subinfo: '' },
-            { text: "c) Como isso te afeta?", subinfo: '' },
+            { text: "a) Você concorda com essa percepção?", subinfo: '', help: '' },
+            { text: "b) Por que?", subinfo: '', help: '' },
+            { text: "c) Como isso te afeta?", subinfo: '', help: '' },
         ],
     },
     {
         text: "9) Qual foi o melhor chefe/professor/figura de autoridade que você já teve?",
+        help: '',
         section: "TEAM BUILDING",
         info: "",
-        subQuestions: [{ text: "a) Como ele(a) era?", subinfo: '(Percepção sobre liderança)' }],
+        subQuestions: [{ text: "a) Como ele(a) era?", subinfo: '(Percepção sobre liderança)', help: '', }],
     },
     {
         text: "10) Conte-me uma situação em que você contribuiu com suas próprias ideias ou atitudes, sem receber instruções.",
+        help: '',
         section: "TEAM BUILDING",
-        info: "(Proatividade, atitude empreendedora)",
+        info: "(Proatividade, atitude empreendedora) Exemplo: Quando tive q correr atras de onibus",
     },
     {
         text: "11) O que diversidade e inclusão significam para você e qual a importância disso?",
+        help: '',
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
         text: "12) Qual sua opinião sobre trabalhar em um ambiente diversificado?",
+        help: '',
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
         text: "13) Diante de um comentário racista ou homofóbico dentro da empresa, qual é a sua reação?",
+        help: '',
         section: "DIVERSIDADE E INCLUSÃO",
         info: "",
     },
     {
         text: "14) Por que você acha que deveria ser aprovado?",
+        help: '',
         section: "PARA FINALIZAR",
         info: "(Persuasão, autoconfiança)",
     },
@@ -204,71 +226,79 @@ export default function Questionnaire() {
         setResponses(updatedResponses);
     };
 
-    const handleSubChange = (questionIndex: number, subIndex: number, value: string) => {
-        const updatedSubResponses = [...subResponses];
+    const handleSubChange = (
+        questionIndex: number,
+        subIndex: number,
+        value: string
+    ) => {
+        setSubResponses((prevResponses) => {
+            const updatedResponses = [...prevResponses];
 
-        // Inicializa o array da pergunta, se ainda não existir
-        if (!updatedSubResponses[questionIndex]) {
-            updatedSubResponses[questionIndex] = [];
-        }
+            // Se ainda não existir um array de subrespostas para a pergunta, cria um vazio
+            if (!updatedResponses[questionIndex]) {
+                updatedResponses[questionIndex] = [];
+            }
 
-        // Inicializa a subpergunta como uma string vazia se ainda não existir
-        if (typeof updatedSubResponses[questionIndex][subIndex] === 'undefined') {
-            updatedSubResponses[questionIndex][subIndex] = '';
-        }
+            // Garante que as outras subperguntas permaneçam inalteradas
+            const updatedSubQuestion = [...(updatedResponses[questionIndex] || [])];
+            updatedSubQuestion[subIndex] = value;
+            updatedResponses[questionIndex] = updatedSubQuestion;
 
-        // Atribui o valor da resposta da subpergunta
-        updatedSubResponses[questionIndex][subIndex] = value;
-        setSubResponses(updatedSubResponses);
+            return updatedResponses;
+        });
     };
+
     const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false); // Novo estado
 
     const handleButton = () => {
-        if(candidato !== ''){
-        setIsGeneratingPdf(true); // Inicia a geração do PDF
-        }else(
+        if (candidato !== '') {
+            setIsGeneratingPdf(true); // Inicia a geração do PDF
+        } else (
             alert('Preencha o Nome do Candidato')
-        )   
+        )
     }
+
 
     useEffect(() => {
         if (isGeneratingPdf) {
             generatePdf()
         }
     }, [isGeneratingPdf]);
-
     const generatePdf = async () => {
-        const element = document.body; // ou qualquer outro elemento que você queira capturar
+        const element = document.body; // Elemento a ser capturado
         const canvas = await html2canvas(element, {
-            scale: 2, // Aumentar a escala para melhor resolução
-            useCORS: true, // Permite capturar imagens externas
+            scale: 2, // Melhora a qualidade
+            useCORS: true, // Permite carregar imagens externas
         });
-
+    
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
-        const imgWidth = 190; // Largura da imagem no PDF
-        const pageHeight = pdf.internal.pageSize.height;
-        const imgHeight = (canvas.height * imgWidth + 20) / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        // Adiciona a imagem ao PDF e divide em páginas se necessário
+    
+        const imgWidth = 190; // Largura da imagem no PDF (em mm)
+        const pageHeight = pdf.internal.pageSize.height; // Altura da página do PDF (em mm)
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Altura proporcional da imagem
+        let heightLeft = imgHeight; // Controle da altura restante para renderizar
+        let position = 0; // Controle da posição vertical
+    
+        // Adicionar a primeira página
         pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-
-        while (heightLeft >= 40) {
-            position = heightLeft - imgHeight;
+    
+        // Adicionar páginas subsequentes (se necessário)
+        while (heightLeft > 0) {
             pdf.addPage();
+            position = heightLeft - imgHeight; // Define a nova posição no canvas
             pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
         }
+    
         const today = new Date();
         const formattedDate = today.toLocaleDateString('pt-BR');
-
-        pdf.save(`EntrevistaPSE-${candidato}-${formattedDate}.pdf`);
+        pdf.save(`EntrevistaPSE-${formattedDate}.pdf`);
         setIsGeneratingPdf(false)
     };
-
+    
+    
 
 
     const groupedQuestions = groupQuestionsBySection(questions);
@@ -290,17 +320,36 @@ export default function Questionnaire() {
                         <RegularHeaderText>Processo Seletivo Externo</RegularHeaderText>
                     </HeaderTextWrapper>
                 </HeaderContainer>
-                <HorizontalDivider />
+                <HorizontalDivider style={{ width: '100%' }} />
 
                 <CandidateNameContainer>
-                    <CandidateNameText>Nome do Candidato</CandidateNameText>
-                    <TextInput type="text" value={candidato} onChange={handleNameChange} />
+
+                    {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                        <div style={{ width: '100%', marginBottom: '10px' }}>
+                            <QuestionText>Nome do Candidato: {candidato}</QuestionText>
+                        </div>
+                    ) : (
+                        <><CandidateNameText>Nome do Candidato</CandidateNameText>
+                            <TextInput type="text" value={candidato} onChange={handleNameChange} /></>)}
                 </CandidateNameContainer>
                 <SenseiNameContainer>
-                    <CandidateNameText>Entrevistador</CandidateNameText>
-                    <TextInputSecond type="text" value={entrevistador} onChange={handleEntrevistadorChange} />
-                    <CandidateNameText>Observador</CandidateNameText>
-                    <TextInputSecond type="text" value={observador} onChange={handleObservadorChange} />
+                    {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                        <div style={{ width: '100%' }}>
+                            <QuestionText>Entrevistador: {entrevistador}</QuestionText>
+                        </div>
+                    ) : (
+                        <> <CandidateNameText>Entrevistador</CandidateNameText>
+                            <TextInputSecond type="text" value={entrevistador} onChange={handleEntrevistadorChange} />
+                        </>
+                    )}
+                    {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                        <div style={{ width: '100%' }}>
+                            <QuestionText>Observador: {observador}</QuestionText>
+                        </div>
+                    ) : (
+                        <> <CandidateNameText>Observador</CandidateNameText>
+                            <TextInputSecond type="text" value={observador} onChange={handleObservadorChange} />
+                        </>)}
                 </SenseiNameContainer>
 
                 <IntroduceContainer>
@@ -314,76 +363,109 @@ export default function Questionnaire() {
 
 
                 {Object.entries(groupedQuestions).map(([section, questions], sectionIndex) => (
-                    <div key={section}>
+                    <SessaoDiv key={section}>
                         <SectionHeader>{section}</SectionHeader>
                         {questions.map((question, questionIndex) => (
                             <QuestionBlock key={questionIndex}>
                                 <QuestionTextWrapper>
-                                    <QuestionText>
-                                        {question.text === '6)' ? (
-                                            <>Pergunta 6) Dado os nossos valores:<br/><br/>•Comprometimento com os resultados<br/> •Entregar soluções de impacto<br/> •Responsabilidade ético-social<br/> •Promover diversidade e inclusão<br/> •Compartilhar conhecimentos<br/> •Crescimento conjunto e empático<br/> •Orgulho de Ser Samurai<br/><br/> Em qual deles você mais se reconhece?</>
-                                        ):(question.text)}
-                                        {question.info !== '' ? (
-                                            <InfoText>{question.info}</InfoText>
-                                        ) : (null)}
-                                    </QuestionText>
+                                    {isGeneratingPdf ? (
+
+                                        <QuestionText style={{ fontWeight: 700 }}>
+                                            {question.text === '6)' ? (
+                                                <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
+                                            ) : (question.text)}
+                                        </QuestionText>
+                                    ) : (
+                                        <QuestionText>
+                                            {question.text === '6)' ? (
+                                                <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
+                                            ) : (question.text)}
+                                            {question.help === "" ? (null) : (
+                                                <InfoButton onClick={() => handleOpenModal(question.help)}>i</InfoButton>
+                                            )}
+                                            {question.info !== '' ? (
+                                                <InfoText>{question.info}</InfoText>
+                                            ) : (null)}
+
+                                        </QuestionText>
+                                    )}
+
+
                                 </QuestionTextWrapper>
                                 {isGeneratingPdf ? ( // Verifica se está gerando PDF
-                                    <div style={{ width: '100%', marginBottom: '10px' }}>
-                                        <QuestionText>{responses[sectionIndex][questionIndex]}</QuestionText>
-                                    </div>
+                                    <ResponseGenerate>
+                                        <QuestionTextPDF>{responses[sectionIndex][questionIndex]}</QuestionTextPDF>
+                                    </ResponseGenerate>
                                 ) : (
                                     <TextAreaInput
+                                        placeholder='Responda Aqui...'
                                         value={responses[sectionIndex][questionIndex] || ''}
                                         onChange={(e) => handleChange(sectionIndex, questionIndex, e.target.value)}
                                     />
                                 )}
-                        
-                                {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
-                                    <div key={subIndex} style={{marginLeft:30}}>
-                                        <QuestionText>{subQuestion.text}
-                                            {subQuestion.subinfo !== '' ? (
-                                                <InfoText>{subQuestion.subinfo}</InfoText>
-                                            ) : (null)}
-                                        </QuestionText>
-                                        {isGeneratingPdf ? ( // Verifica se está gerando PDF
-                                            <div style={{ width: '100%', marginBottom: '10px' }}>
-                                                <QuestionText>{subResponses[sectionIndex][questionIndex]}</QuestionText>
+                                <SubQuestionBar>
+                                    <SubLeftBar />
+                                    <div style={{ width: '100%' }}>
+                                        {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
+                                            <div key={subIndex} >
+                                                {isGeneratingPdf ? (
+                                                <QuestionText style={{fontWeight:700}}>
+                                                    {subQuestion.text}
+                                                </QuestionText>
+                                                ):(
+                                                    <QuestionText>
+                                                    {subQuestion.text}
+                                                    {subQuestion.help === "" ? (null) : (
+                                                        <InfoButton onClick={() => handleOpenModal(subQuestion.help)}>i</InfoButton>
+                                                    )}
+                                                    {subQuestion.subinfo !== '' ? (
+                                                        <InfoText>{subQuestion.subinfo}</InfoText>
+                                                    ) : (null)}
+                                                </QuestionText>
+
+                                                )}
+                                                {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                                                    <div style={{ width: '500px', marginBottom: '10px' }}>
+                                                        <QuestionTextPDF>{subResponses[questionIndex][subIndex]}</QuestionTextPDF>
+                                                    </div>
+                                                ) : (
+                                                    <SubTextAreaInput
+                                                        value={subResponses[questionIndex]?.[subIndex] || ''}
+                                                        placeholder='Responda Aqui...'
+                                                        onChange={(e) => handleSubChange(questionIndex, subIndex, e.target.value)}
+                                                    />
+                                                )}
+                                                {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
+                                                    <div style={{ marginBottom: '10px' }}>
+                                                        <ImportText>Pontos Principais:<br />
+                                                            •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
+                                                            •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
+                                                            •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
+                                                            •Política de avisar se for dar ruim</ImportText>
+                                                    </div>
+                                                )}
                                             </div>
-                                        ) : (
-                                            <SubTextAreaInput
-                                                value={subResponses[sectionIndex]?.[subIndex] || ''}
-                                                onChange={(e) => handleSubChange(sectionIndex, subIndex, e.target.value)}
-                                            />)}
-                                             {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
-                                    <div style={{ marginBottom: '10px' }}>
-                                        <ImportText>Pontos Principais:<br />
-                                            •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
-                                            •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
-                                            •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
-                                            •Política de avisar se for dar ruim</ImportText>
-                                    </div>
-                                )}
-                                    </div>
-                                    
-                                ))}
+
+                                        ))}</div></SubQuestionBar>
 
                             </QuestionBlock>
                         ))}
                         {sectionIndex < Object.keys(groupedQuestions).length - 1 && <HorizontalDivider />}
-                    </div>
+                    </SessaoDiv>
                 ))}
 
                 <ImportText>Aviso Final:<br />
-                    •Os resultados da entrevista saem até dia 12/07/2024 (sexta-feira)<br />
-                    •Lembrar de sempre olhar o spam<br />
-                    •Perguntar se o candidato tem alguma dúvida<br />
-                    •Qualquer problema que ele tiver mandar email para gp: equipe.gp@ejcm.com.br<br />
+                    • Os resultados da entrevista saem até dia 12/07/2025 (sexta-feira)<br />
+                    • Lembrar de sempre olhar o spam<br />
+                    • Perguntar se o candidato tem alguma dúvida<br />
+                    • Qualquer problema que ele tiver mandar email para gp: equipe.gp@ejcm.com.br<br />
                     Boa sorte!
                 </ImportText>
+                {isGeneratingPdf ? (null):(
                 <ButtonWrapper>
                     <SubmitButton onClick={handleButton}>Gerar PDF</SubmitButton>
                 </ButtonWrapper>
+                )}
             </ContentContainer>
 
             {warningOpen && (

@@ -82,13 +82,17 @@ export const SectionHeader = styled.h2`
 `;
 
 export const HorizontalDivider = styled.div`
-  width: 100%;
+  width: 934px;
   height: 2px;
   background-color: #22A2F2;
 `;
 
+export const SessaoDiv = styled.div`
+  
+`;
+
 export const QuestionBlock = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 
   @media (max-width: 968px) {
     margin-bottom: 15px;
@@ -106,7 +110,7 @@ export const CandidateNameContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 20px 0;
+  margin: 20px 0 8px 0;
 
   @media (max-width: 968px) {
     flex-direction: row;
@@ -118,7 +122,7 @@ export const SenseiNameContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 20px 0;
+  margin: 0px 0;
   gap: 20px;
 
   @media (max-width: 968px) {
@@ -131,14 +135,14 @@ export const SenseiNameContainer = styled.div`
 const InputBase = styled.input`
   width: 100%;
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 16px;
   background-color: #f4f4f4;
   border-radius: 5px;
   outline: none;
 `;
 
 export const TextInput = styled(InputBase)`
-  height: 20px;
+  height: 10px;
 
   @media (max-width: 968px) {
     height: 40px;
@@ -146,7 +150,7 @@ export const TextInput = styled(InputBase)`
 `;
 
 export const TextInputSecond = styled(InputBase)`
-  height: 20px;
+  height: 10px;
   margin-left: 10px;
 
   @media (max-width: 968px) {
@@ -154,10 +158,16 @@ export const TextInputSecond = styled(InputBase)`
   }
 `;
 
+export const ResponseGenerate = styled.div`
+width: 100%;
+word-break: break-all; 
+`;
+
 export const TextAreaInput = styled(InputBase.withComponent('textarea'))`
   height: 180px;
-  margin-top: 5px;
   resize: none;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
 
   @media (max-width: 968px) {
     height: 100px;
@@ -167,6 +177,8 @@ export const SubTextAreaInput = styled(InputBase.withComponent('textarea'))`
   height: 180px;
   margin-top: 5px;
   resize: none;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
 
 
   @media (max-width: 968px) {
@@ -230,22 +242,54 @@ export const IndicatorDot = styled.div`
   background-color: #22A2F2;
 `;
 
+
+export const SubQuestionBar = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 30px 30px 30px 0px;
+ 
+`;
+
+
+export const SubLeftBar = styled.div`
+  width: 3px;
+  margin-right: 20px;
+  margin-left: 30px;
+  background-color: #dedede;
+`;
+
 export const QuestionText = styled.p`
   font-size: 18px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   color: #001238;
+  margin: 12px 0 12px 0;
+
+  @media (max-width: 968px) {
+    font-size: 16px;
+  }
+`;
+
+
+export const QuestionTextPDF = styled.p`
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #676767;
+  margin: 12px 0 12px 0;
 
   @media (max-width: 968px) {
     font-size: 16px;
   }
 `;
 export const ImportText = styled.p`
-  font-size: 22px;
+  font-size: 18px;
   font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   color: #001238;
-
+  line-height: 30px;
   @media (max-width: 968px) {
     font-size: 16px;
   }
@@ -255,6 +299,7 @@ export const InfoText = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   color: #D90031;
+  margin: 8px 0;
 
   @media (max-width: 968px) {
     font-size: 16px;
@@ -274,7 +319,7 @@ export const CandidateNameText = styled.p`
   }
 `;
 export const IntroduceText = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   color: #001238;
@@ -291,6 +336,7 @@ display: inline;
 
 export const IntroduceContainer = styled.div`
   width: 100%;
+  margin: 40px 0;
 `;
 
 export const SubmitButton = styled.button`
