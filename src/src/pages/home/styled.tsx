@@ -111,6 +111,7 @@ export const CandidateNameContainer = styled.div`
   align-items: center;
   flex-direction: row;
   margin: 20px 0 8px 0;
+  word-break: break-all; 
 
   @media (max-width: 968px) {
     flex-direction: row;
@@ -124,6 +125,7 @@ export const SenseiNameContainer = styled.div`
   flex-direction: row;
   margin: 0px 0;
   gap: 20px;
+ 
 
   @media (max-width: 968px) {
     flex-direction: column;
@@ -139,13 +141,15 @@ const InputBase = styled.input`
   background-color: #f4f4f4;
   border-radius: 5px;
   outline: none;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
 `;
 
 export const TextInput = styled(InputBase)`
   height: 10px;
 
   @media (max-width: 968px) {
-    height: 40px;
+    height: 20px;
   }
 `;
 
@@ -154,7 +158,7 @@ export const TextInputSecond = styled(InputBase)`
   margin-left: 10px;
 
   @media (max-width: 968px) {
-    height: 40px;
+    height: 20px;
   }
 `;
 
@@ -375,6 +379,7 @@ export const ButtonWrapper = styled.div`
   @media (max-width: 968px) {
     justify-content: center;
     margin-top: 10px;
+    display: none;
   }
 `;
 
