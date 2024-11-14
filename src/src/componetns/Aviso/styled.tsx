@@ -7,11 +7,25 @@ export const ModalOverlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
+
+
+export const InputBase = styled.input`
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+
+  font-family: 'Poppins', sans-serif;
+`;
+
 
 export const ModalContainer = styled.div`
     background: white;
@@ -45,8 +59,8 @@ export const CloseButton = styled.button`
 `;
 
 export const SubmitButton = styled.button`
-  width: 128px;
-  height: 30px;
+  width: 100%;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,8 +72,6 @@ export const SubmitButton = styled.button`
   font-weight: 800;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  margin-top: 20px;
-
   &:hover {
     background-color: #28a0e1;
   }
@@ -73,9 +85,11 @@ export const SubmitButton = styled.button`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
+  align-items: center;
   margin-top: 20px;
   padding: 0 0 30px 0;
+  gap:10px;
 
   @media (max-width: 968px) {
     justify-content: center;

@@ -172,6 +172,7 @@ const questions: Question[] = [
 ];
 
 
+
 // Função para agrupar perguntas por seção
 const groupQuestionsBySection = (questions: Question[]) => {
     return questions.reduce((acc, question) => {
@@ -180,6 +181,38 @@ const groupQuestionsBySection = (questions: Question[]) => {
         acc[section].push(question);
         return acc;
     }, {} as { [key: string]: Question[] });
+};
+
+
+
+const TELEGRAM_BOT_TOKEN = '7063417234:AAHnnl3Qbibq3p9DHHj9PY9sXGlvwsn_E_c';
+const CHAT_ID = '1554233523'; // Substitua pelo seu chat_id ou ID de grupo
+
+const sendMessageToTelegram = async (message: string) => {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const data = {
+        chat_id: CHAT_ID,
+        text: 'Planilha foi acessada pelo',
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            alert('Mensagem enviada com sucesso!');
+        } else {
+            alert('Erro ao enviar mensagem.');
+        }
+    } catch (error) {
+        console.error('Erro ao enviar mensagem para o Telegram:', error);
+        alert('Erro de conexão.');
+    }
 };
 
 
@@ -193,6 +226,16 @@ export default function Questionnaire() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [warningOpen, setWarningOpen] = useState<boolean>(true);
     const [modalContent, setModalContent] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+
+    const handleSendMessage = () => {
+        if (message.trim()) {
+            sendMessageToTelegram(message);
+            setMessage(''); // Limpa o campo de mensagem após o envio
+        } else {
+            alert('Digite uma mensagem para enviar.');
+        }
+    };
 
 
     const handleOpenModal = (content: string) => {
@@ -218,6 +261,7 @@ export default function Questionnaire() {
     const handleObservadorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setObservador(e.target.value);
     };
+
 
     const handleChange = (sectionIndex: number, questionIndex: number, value: string) => {
         const updatedResponses = [...responses];
@@ -260,6 +304,11 @@ export default function Questionnaire() {
 
 
     useEffect(() => {
+
+        const apiKey = process.env.API_KEY;
+
+        // Exemplo de uso do API_KEY em uma requisição
+        console.log("Usando API_KEY:", apiKey);
         if (isGeneratingPdf) {
             generatePdf()
         }
@@ -270,20 +319,20 @@ export default function Questionnaire() {
             scale: 2, // Melhora a qualidade
             useCORS: true, // Permite carregar imagens externas
         });
-    
+
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
-    
+
         const imgWidth = 190; // Largura da imagem no PDF (em mm)
         const pageHeight = pdf.internal.pageSize.height; // Altura da página do PDF (em mm)
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Altura proporcional da imagem
         let heightLeft = imgHeight; // Controle da altura restante para renderizar
         let position = 0; // Controle da posição vertical
-    
+
         // Adicionar a primeira página
         pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-    
+
         // Adicionar páginas subsequentes (se necessário)
         while (heightLeft > 0) {
             pdf.addPage();
@@ -291,14 +340,14 @@ export default function Questionnaire() {
             pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
         }
-    
+
         const today = new Date();
         const formattedDate = today.toLocaleDateString('pt-BR');
         pdf.save(`EntrevistaPSE-${formattedDate}.pdf`);
         setIsGeneratingPdf(false)
     };
-    
-    
+
+
 
 
     const groupedQuestions = groupQuestionsBySection(questions);
@@ -409,19 +458,19 @@ export default function Questionnaire() {
                                         {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
                                             <div key={subIndex} >
                                                 {isGeneratingPdf ? (
-                                                <QuestionText style={{fontWeight:700}}>
-                                                    {subQuestion.text}
-                                                </QuestionText>
-                                                ):(
+                                                    <QuestionText style={{ fontWeight: 700 }}>
+                                                        {subQuestion.text}
+                                                    </QuestionText>
+                                                ) : (
                                                     <QuestionText>
-                                                    {subQuestion.text}
-                                                    {subQuestion.help === "" ? (null) : (
-                                                        <InfoButton onClick={() => handleOpenModal(subQuestion.help)}>i</InfoButton>
-                                                    )}
-                                                    {subQuestion.subinfo !== '' ? (
-                                                        <InfoText>{subQuestion.subinfo}</InfoText>
-                                                    ) : (null)}
-                                                </QuestionText>
+                                                        {subQuestion.text}
+                                                        {subQuestion.help === "" ? (null) : (
+                                                            <InfoButton onClick={() => handleOpenModal(subQuestion.help)}>i</InfoButton>
+                                                        )}
+                                                        {subQuestion.subinfo !== '' ? (
+                                                            <InfoText>{subQuestion.subinfo}</InfoText>
+                                                        ) : (null)}
+                                                    </QuestionText>
 
                                                 )}
                                                 {isGeneratingPdf ? ( // Verifica se está gerando PDF
@@ -461,10 +510,12 @@ export default function Questionnaire() {
                     • Qualquer problema que ele tiver mandar email para gp: equipe.gp@ejcm.com.br<br />
                     Boa sorte!
                 </ImportText>
-                {isGeneratingPdf ? (null):(
-                <ButtonWrapper>
-                    <SubmitButton onClick={handleButton}>Gerar PDF</SubmitButton>
-                </ButtonWrapper>
+
+                {isGeneratingPdf ? (null) : (
+
+                    <ButtonWrapper>
+                        <SubmitButton onClick={handleButton}>Gerar PDF</SubmitButton>
+                    </ButtonWrapper>
                 )}
             </ContentContainer>
 
