@@ -182,33 +182,6 @@ const groupQuestionsBySection = (questions: Question[]) => {
 const TELEGRAM_BOT_TOKEN = '7063417234:AAHnnl3Qbibq3p9DHHj9PY9sXGlvwsn_E_c';
 const CHAT_ID = '1554233523'; // Substitua pelo seu chat_id ou ID de grupo
 
-const sendMessageToTelegram = async (message: string) => {
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    const data = {
-        chat_id: CHAT_ID,
-        text: 'Planilha foi acessada pelo',
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-            alert('Mensagem enviada com sucesso!');
-        } else {
-            alert('Erro ao enviar mensagem.');
-        }
-    } catch (error) {
-        console.error('Erro ao enviar mensagem para o Telegram:', error);
-        alert('Erro de conexão.');
-    }
-};
-
 
 // Componente principal
 export default function Questionnaire() {
