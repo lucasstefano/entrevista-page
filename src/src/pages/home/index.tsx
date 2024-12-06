@@ -221,7 +221,7 @@ export default function Questionnaire() {
     const [candidato, setUserName] = useState<string>('');
     const [entrevistador, setEntrevistador] = useState<string>('');
     const [observador, setObservador] = useState<string>('');
-    const [responses, setResponses] = useState<string[][]>(questions.map(() => ['']));
+    const [responses, setResponses] = useState<string[]>(questions.map(() => ''));
     const [subResponses, setSubResponses] = useState<string[][]>(questions.map(() => []));
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [warningOpen, setWarningOpen] = useState<boolean>(true);
@@ -262,35 +262,24 @@ export default function Questionnaire() {
         setObservador(e.target.value);
     };
 
-
-    const handleChange = (sectionIndex: number, questionIndex: number, value: string) => {
+    const handleChange = (questionIndex: number, value: string) => {
         const updatedResponses = [...responses];
-        if (!updatedResponses[sectionIndex]) updatedResponses[sectionIndex] = [];
-        updatedResponses[sectionIndex][questionIndex] = value;
+        updatedResponses[questionIndex] = value;
         setResponses(updatedResponses);
     };
 
-    const handleSubChange = (
-        questionIndex: number,
-        subIndex: number,
-        value: string
-    ) => {
-        setSubResponses((prevResponses) => {
+    const handleSubChange = (questionIndex: number, subIndex: number, value: string) => {
+        setSubResponses(prevResponses => {
             const updatedResponses = [...prevResponses];
-
-            // Se ainda não existir um array de subrespostas para a pergunta, cria um vazio
-            if (!updatedResponses[questionIndex]) {
-                updatedResponses[questionIndex] = [];
-            }
-
-            // Garante que as outras subperguntas permaneçam inalteradas
-            const updatedSubQuestion = [...(updatedResponses[questionIndex] || [])];
-            updatedSubQuestion[subIndex] = value;
-            updatedResponses[questionIndex] = updatedSubQuestion;
-
+            const updatedSubQuestions = [...(updatedResponses[questionIndex] || [])];
+            updatedSubQuestions[subIndex] = value;
+            updatedResponses[questionIndex] = updatedSubQuestions;
             return updatedResponses;
         });
     };
+
+    const groupedQuestions = groupQuestionsBySection(questions);
+    let globalQuestionIndex = 0; // Variável para controlar o índice global
 
     const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false); // Novo estado
 
@@ -349,8 +338,6 @@ export default function Questionnaire() {
 
 
 
-
-    const groupedQuestions = groupQuestionsBySection(questions);
 
     return (
         <AppScreen>
@@ -414,8 +401,10 @@ export default function Questionnaire() {
                 {Object.entries(groupedQuestions).map(([section, questions], sectionIndex) => (
                     <SessaoDiv key={section}>
                         <SectionHeader>{section}</SectionHeader>
-                        {questions.map((question, questionIndex) => (
-                            <QuestionBlock key={questionIndex}>
+                        {questions.map((question, localQuestionIndex) => {
+                              const globalIndex = globalQuestionIndex++;
+                              return (
+                            <QuestionBlock key={globalIndex}>
                                 <QuestionTextWrapper>
                                     {isGeneratingPdf ? (
 
@@ -443,13 +432,13 @@ export default function Questionnaire() {
                                 </QuestionTextWrapper>
                                 {isGeneratingPdf ? ( // Verifica se está gerando PDF
                                     <ResponseGenerate>
-                                        <QuestionTextPDF>{responses[sectionIndex][questionIndex]}</QuestionTextPDF>
+                                        <QuestionTextPDF>{responses[globalIndex]}</QuestionTextPDF>
                                     </ResponseGenerate>
                                 ) : (
                                     <TextAreaInput
                                         placeholder='Responda Aqui...'
-                                        value={responses[sectionIndex][questionIndex] || ''}
-                                        onChange={(e) => handleChange(sectionIndex, questionIndex, e.target.value)}
+                                        value={responses[globalIndex] || ''}
+                                        onChange={(e) => handleChange(globalIndex, e.target.value)}
                                     />
                                 )}
                                 <SubQuestionBar>
@@ -475,13 +464,13 @@ export default function Questionnaire() {
                                                 )}
                                                 {isGeneratingPdf ? ( // Verifica se está gerando PDF
                                                     <div style={{ width: '500px', marginBottom: '10px' }}>
-                                                        <QuestionTextPDF>{subResponses[questionIndex][subIndex]}</QuestionTextPDF>
+                                                        <QuestionTextPDF>{subResponses[globalIndex]?.[subIndex]}</QuestionTextPDF>
                                                     </div>
                                                 ) : (
                                                     <SubTextAreaInput
-                                                        value={subResponses[questionIndex]?.[subIndex] || ''}
+                                                        value={subResponses[globalIndex]?.[subIndex] || ''}
                                                         placeholder='Responda Aqui...'
-                                                        onChange={(e) => handleSubChange(questionIndex, subIndex, e.target.value)}
+                                                        onChange={(e) => handleSubChange(globalIndex, subIndex, e.target.value)}
                                                     />
                                                 )}
                                                 {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
@@ -497,8 +486,9 @@ export default function Questionnaire() {
 
                                         ))}</div></SubQuestionBar>
 
-                            </QuestionBlock>
-                        ))}
+</QuestionBlock>
+                            );
+                        })}
                         {sectionIndex < Object.keys(groupedQuestions).length - 1 && <HorizontalDivider />}
                     </SessaoDiv>
                 ))}

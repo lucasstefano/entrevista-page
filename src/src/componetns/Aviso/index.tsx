@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonWrapper, CloseButton, InputBase, ModalContainer, ModalOverlay, StyText, StyTextBold, SubmitButton, Topbar } from "./styled";
+import { ButtonWrapper, InputBase, ModalContainer, ModalOverlay, StyText, StyTextBold, SubmitButton, Topbar } from "./styled";
 
 interface ModalProps {
     onClose: () => void;
@@ -61,25 +61,55 @@ export default function WarnignModal({ onClose }: ModalProps) {
         return () => clearInterval(intervalId);
     }, []);
 
+    const Lista = [
+        'lucasstefano@ejcm.com.br',
+        'thais@ejcm.com.br',
+        'mateusrocha@ejcm.com.br',
+        'sara@ejcm.com.br',
+        'isabellarocha@ejcm.com.br',
+        'rafaelbarbosa@ejcm.com.br',
+        'juliafernandes@ejcm.com.br',
+        'rafaela@ejcm.com.br',
+        'victorsantos@ejcm.com.br',
+        'gabrielly@ejcm.com.br',
+        'mario@ejcm.com.br',
+        'franciscoflorencio@ejcm.com.br',
+        'gabrielacarneiro@ejcm.com.br',
+        'juliavilela@ejcm.com.br',
+        'marcus@ejcm.com.br',
+        'rafaelclemente@ejcm.com.br',
+        'alex@ejcm.com.br',
+        'giovanna@ejcm.com.br',
+        'jborges@ejcm.com.br',
+        'izabel@ejcm.com.br',
+        'eduardolima@ejcm.com.br',
+        'luizabarroso@ejcm.com.br',
+        'richard@ejcm.com.br',
+        'alexandre@ejcm.com.br',
+        'anna@ejcm.com.br',
+        'kaio@ejcm.com.br',
+        'iagocesar@ejcm.com.br',
+        'danilosantos@ejcm.com.br',
+        'lorenna@ejcm.com.br',
+        'danielly@ejcm.com.br',
+    ];
+    
     const handleSendMessage = () => {
         if (message.trim()) {
-            if (message === 'EJCM2025'){
-                sendMessageToTelegram(message,dateTime);
-                setMessage(''); // Limpa o campo de mensagem após o envio
-                onClose()
-
+            if (Lista.includes(message)) { 
+                sendMessageToTelegram(message, dateTime);
+                onClose(); 
+            } else {
+                alert('Não Autorizado');
             }
-            else{
-                alert('Não Autorizado')
-            }
-
         } else {
             alert('Digite uma mensagem para enviar.');
         }
     };
+    
 
     return (
-        <ModalOverlay onClick={onClose}>
+        <ModalOverlay >
             <ModalContainer onClick={(e) => e.stopPropagation()}> {/* Impede o fechamento ao clicar dentro do modal */}
                 <StyTextBold>Atenção!</StyTextBold>
                 <StyText>Não leia o texto em vermelho para o candidato! Ele indica as diretrizes de avaliação da pergunta, os pontos aos quais você deve ficar mais atento.</StyText>
