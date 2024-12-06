@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonWrapper, InputBase, ModalContainer, ModalOverlay, StyText, StyTextBold, SubmitButton, Topbar } from "./styled";
+import { ButtonWrapper, InputBase, ModalContainer, ModalOverlay, StyText, StyTextBold, SubmitButton } from "./styled";
 
 interface ModalProps {
     onClose: () => void;

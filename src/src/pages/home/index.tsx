@@ -40,12 +40,6 @@ import {
 import WarnignModal from '../../componetns/Aviso';
 import Modal from '../../componetns/Modal';
 
-interface SubQuestion {
-    text: string;
-    subinfo: string;
-    help: string;
-}
-
 type Question = {
     text: string;
     section: string;
@@ -227,16 +221,6 @@ export default function Questionnaire() {
     const [warningOpen, setWarningOpen] = useState<boolean>(true);
     const [modalContent, setModalContent] = useState<string>('');
     const [message, setMessage] = useState<string>('');
-
-    const handleSendMessage = () => {
-        if (message.trim()) {
-            sendMessageToTelegram(message);
-            setMessage(''); // Limpa o campo de mensagem após o envio
-        } else {
-            alert('Digite uma mensagem para enviar.');
-        }
-    };
-
 
     const handleOpenModal = (content: string) => {
         setModalContent(content);
