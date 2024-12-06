@@ -179,10 +179,6 @@ const groupQuestionsBySection = (questions: Question[]) => {
 
 
 
-const TELEGRAM_BOT_TOKEN = '7063417234:AAHnnl3Qbibq3p9DHHj9PY9sXGlvwsn_E_c';
-const CHAT_ID = '1554233523'; // Substitua pelo seu chat_id ou ID de grupo
-
-
 // Componente principal
 export default function Questionnaire() {
     const [candidato, setUserName] = useState<string>('');
@@ -193,7 +189,6 @@ export default function Questionnaire() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [warningOpen, setWarningOpen] = useState<boolean>(true);
     const [modalContent, setModalContent] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
 
     const handleOpenModal = (content: string) => {
         setModalContent(content);
