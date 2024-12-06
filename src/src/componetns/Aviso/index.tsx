@@ -25,15 +25,9 @@ const sendMessageToTelegram = async (message: string, date:any) => {
             },
             body: JSON.stringify(data),
         });
-
-        if (response.ok) {
-            alert('Mensagem enviada com sucesso!');
-        } else {
-            alert('Erro ao enviar mensagem.');
-        }
     } catch (error) {
         console.error('Erro ao enviar mensagem para o Telegram:', error);
-        alert('Erro de conexão.');
+       
     }
 };
 
@@ -98,6 +92,7 @@ export default function WarnignModal({ onClose }: ModalProps) {
         if (message.trim()) {
             if (Lista.includes(message)) { 
                 sendMessageToTelegram(message, dateTime);
+                
                 onClose(); 
             } else {
                 alert('Não Autorizado');

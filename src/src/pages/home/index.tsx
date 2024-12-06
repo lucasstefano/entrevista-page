@@ -39,6 +39,7 @@ import {
 } from './styled';
 import WarnignModal from '../../componetns/Aviso';
 import Modal from '../../componetns/Modal';
+import axios from 'axios';
 
 type Question = {
     text: string;
@@ -50,12 +51,6 @@ type Question = {
 
 const questions: Question[] = [
     {
-        text: "1) Se apresenta pra gente, me conta um pouco sobre você.",
-        section: "FIT CULTURAL",
-        help: '',
-        info: "(comunicação, raciocínio lógico, visão sistêmica, persuasão) [Identifique na fala do candidato e pergunte se for preciso se ele aparenta ter boa gestão das atividades e se tem disponibilidade de 20h semanais para dedicação na EJCM]",
-    },
-    {
         text: "2) O que você achou de participar do dia de dinâmicas?",
         help: '',
         section: "FIT CULTURAL",
@@ -65,103 +60,6 @@ const questions: Question[] = [
             { text: "b) Como foi escrever a resolução de case?", subinfo: '', help: '' },
             { text: "c) Você usou alguma ferramenta para te auxiliar?", subinfo: '', help: '' },
         ],
-    },
-    {
-        text: "3) Qual sua motivação para fazer parte da EJCM?",
-        help: '',
-        section: "FIT CULTURAL",
-        info: "",
-    },
-    {
-        text: "4) Você já conhecia a EJCM ou o Movimento Empresa Júnior, o MEJ?",
-        help: '',
-        section: "FIT CULTURAL",
-        info: "",
-        subQuestions: [
-            { text: "a) Qual a ideia que você tem da EJCM e do Movimento Empresa Júnior?", subinfo: '', help: '' },
-        ],
-    },
-    {
-        text: "5) Quais são seus objetivos de vida em longo e curto prazo?",
-        help: '',
-        section: "FIT CULTURAL",
-        info: "",
-        subQuestions: [
-            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '(Foco no resultado)', help: '', },
-        ],
-    },
-    {
-        text: '6)',
-        help: 'Ai Papapi',
-        section: "FIT CULTURAL",
-        info: "",
-        subQuestions: [
-            { text: "a) Em qual você acha que poderia se desenvolver mais?", subinfo: '', help: '' },
-            { text: "b) Por Que?", subinfo: '', help: '' },
-        ],
-    },
-    {
-        text: "7) Descreva um momento em que você teve que tomar uma decisão rápida para resolver uma situação.",
-        help: '',
-        section: "TEAM BUILDING",
-        info: "(Análise e solução de problemas, visão sistêmica)",
-    },
-    {
-        text: "8) Quais são seus objetivos de vida?",
-        help: '',
-        section: "TEAM BUILDING",
-        info: "",
-        subQuestions: [
-            { text: "a) Como a EJCM te ajudaria com esses objetivos?", subinfo: '', help: '' },
-        ],
-    },
-    {
-        text: "9) Como as pessoas te enxergam?",
-        help: '',
-        section: "TEAM BUILDING",
-        info: "(Comunicação, habilidade para ouvir, pedir feedback)",
-        subQuestions: [
-            { text: "a) Você concorda com essa percepção?", subinfo: '', help: '' },
-            { text: "b) Por que?", subinfo: '', help: '' },
-            { text: "c) Como isso te afeta?", subinfo: '', help: '' },
-        ],
-    },
-    {
-        text: "10) Qual foi o melhor chefe/professor/figura de autoridade que você já teve?",
-        help: '',
-        section: "TEAM BUILDING",
-        info: "",
-        subQuestions: [{ text: "a) Como ele(a) era?", subinfo: '(Percepção sobre liderança)', help: '', }],
-    },
-    {
-        text: "11) Conte-me uma situação em que você contribuiu com suas próprias ideias ou atitudes, sem receber instruções.",
-        help: '',
-        section: "TEAM BUILDING",
-        info: "(Proatividade, atitude empreendedora)",
-    },
-    {
-        text: "12) O que diversidade e inclusão significam para você e qual a importância disso?",
-        help: '',
-        section: "DIVERSIDADE E INCLUSÃO",
-        info: "",
-    },
-    {
-        text: "13) Qual sua opinião sobre trabalhar em um ambiente diversificado?",
-        help: '',
-        section: "DIVERSIDADE E INCLUSÃO",
-        info: "",
-    },
-    {
-        text: "14) Diante de um comentário racista ou homofóbico dentro da empresa, qual é a sua reação?",
-        help: '',
-        section: "DIVERSIDADE E INCLUSÃO",
-        info: "",
-    },
-    {
-        text: "15) Por que você acha que deveria ser aprovado?",
-        help: '',
-        section: "PARA FINALIZAR",
-        info: "(Persuasão, autoconfiança)",
     },
 ];
 
@@ -189,6 +87,19 @@ export default function Questionnaire() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [warningOpen, setWarningOpen] = useState<boolean>(true);
     const [modalContent, setModalContent] = useState<string>('');
+    const [questionsContent, setQuestionsContent] = useState(questions);
+
+
+    const handleValues = () => {
+        axios.get('https://api.jsonbin.io/v3/b/67526d6bad19ca34f8d67269')
+            .then(response => {
+                console.log('Resposta da API:', response.data); // Inspecionando a resposta
+                const questionsFromApi = response.data.record; // Acesse os dados da chave `record`
+                console.log(questionsFromApi?.questions)
+                setQuestionsContent(questionsFromApi?.questions)
+            })
+            .catch(error => console.error('Erro ao carregar perguntas:', error));
+    }
 
     const handleOpenModal = (content: string) => {
         setModalContent(content);
@@ -198,9 +109,11 @@ export default function Questionnaire() {
     const handleCloseModal = () => {
         setModalOpen(false);
         setModalContent('');
+        
     };
 
     const handleCloseWarning = () => {
+        handleValues()
         setWarningOpen(false);
     };
 
@@ -230,7 +143,7 @@ export default function Questionnaire() {
         });
     };
 
-    const groupedQuestions = groupQuestionsBySection(questions);
+    const groupedQuestions = groupQuestionsBySection(questionsContent);
     let globalQuestionIndex = 0; // Variável para controlar o índice global
 
     const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false); // Novo estado
@@ -350,10 +263,10 @@ export default function Questionnaire() {
                 </IntroduceContainer>
 
 
-                {Object.entries(groupedQuestions).map(([section, questions], sectionIndex) => (
+                {Object.entries(groupedQuestions).map(([section, questionsContent], sectionIndex) => (
                     <SessaoDiv key={section}>
                         <SectionHeader>{section}</SectionHeader>
-                        {questions.map((question, localQuestionIndex) => {
+                        {questionsContent.map((question, localQuestionIndex) => {
                             const globalIndex = globalQuestionIndex++;
                             return (
                                 <QuestionBlock key={globalIndex}>
