@@ -294,10 +294,10 @@ export default function Questionnaire() {
 
     useEffect(() => {
 
-        const apiKey = process.env.API_KEY;
+        // Em algum arquivo do seu código React
+        console.log('Secret API Key:', process.env.REACT_APP_API_KEY);
 
-        // Exemplo de uso do API_KEY em uma requisição
-        console.log("Usando API_KEY:", apiKey);
+
         if (isGeneratingPdf) {
             generatePdf()
         }
@@ -402,91 +402,91 @@ export default function Questionnaire() {
                     <SessaoDiv key={section}>
                         <SectionHeader>{section}</SectionHeader>
                         {questions.map((question, localQuestionIndex) => {
-                              const globalIndex = globalQuestionIndex++;
-                              return (
-                            <QuestionBlock key={globalIndex}>
-                                <QuestionTextWrapper>
-                                    {isGeneratingPdf ? (
+                            const globalIndex = globalQuestionIndex++;
+                            return (
+                                <QuestionBlock key={globalIndex}>
+                                    <QuestionTextWrapper>
+                                        {isGeneratingPdf ? (
 
-                                        <QuestionText style={{ fontWeight: 700 }}>
-                                            {question.text === '6)' ? (
-                                                <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
-                                            ) : (question.text)}
-                                        </QuestionText>
+                                            <QuestionText style={{ fontWeight: 700 }}>
+                                                {question.text === '6)' ? (
+                                                    <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
+                                                ) : (question.text)}
+                                            </QuestionText>
+                                        ) : (
+                                            <QuestionText>
+                                                {question.text === '6)' ? (
+                                                    <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
+                                                ) : (question.text)}
+                                                {question.help === "" ? (null) : (
+                                                    <InfoButton onClick={() => handleOpenModal(question.help)}>i</InfoButton>
+                                                )}
+                                                {question.info !== '' ? (
+                                                    <InfoText>{question.info}</InfoText>
+                                                ) : (null)}
+
+                                            </QuestionText>
+                                        )}
+
+
+                                    </QuestionTextWrapper>
+                                    {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                                        <ResponseGenerate>
+                                            <QuestionTextPDF>{responses[globalIndex]}</QuestionTextPDF>
+                                        </ResponseGenerate>
                                     ) : (
-                                        <QuestionText>
-                                            {question.text === '6)' ? (
-                                                <>Pergunta 6) Dado os nossos valores:<br /><br />•Comprometimento com os resultados<br /> •Entregar soluções de impacto<br /> •Responsabilidade ético-social<br /> •Promover diversidade e inclusão<br /> •Compartilhar conhecimentos<br /> •Crescimento conjunto e empático<br /> •Orgulho de Ser Samurai<br /><br /> Em qual deles você mais se reconhece?</>
-                                            ) : (question.text)}
-                                            {question.help === "" ? (null) : (
-                                                <InfoButton onClick={() => handleOpenModal(question.help)}>i</InfoButton>
-                                            )}
-                                            {question.info !== '' ? (
-                                                <InfoText>{question.info}</InfoText>
-                                            ) : (null)}
-
-                                        </QuestionText>
+                                        <TextAreaInput
+                                            placeholder='Responda Aqui...'
+                                            value={responses[globalIndex] || ''}
+                                            onChange={(e) => handleChange(globalIndex, e.target.value)}
+                                        />
                                     )}
+                                    <SubQuestionBar>
+                                        <SubLeftBar />
+                                        <div style={{ width: '100%' }}>
+                                            {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
+                                                <div key={subIndex} >
+                                                    {isGeneratingPdf ? (
+                                                        <QuestionText style={{ fontWeight: 700 }}>
+                                                            {subQuestion.text}
+                                                        </QuestionText>
+                                                    ) : (
+                                                        <QuestionText>
+                                                            {subQuestion.text}
+                                                            {subQuestion.help === "" ? (null) : (
+                                                                <InfoButton onClick={() => handleOpenModal(subQuestion.help)}>i</InfoButton>
+                                                            )}
+                                                            {subQuestion.subinfo !== '' ? (
+                                                                <InfoText>{subQuestion.subinfo}</InfoText>
+                                                            ) : (null)}
+                                                        </QuestionText>
 
+                                                    )}
+                                                    {isGeneratingPdf ? ( // Verifica se está gerando PDF
+                                                        <div style={{ width: '500px', marginBottom: '10px' }}>
+                                                            <QuestionTextPDF>{subResponses[globalIndex]?.[subIndex]}</QuestionTextPDF>
+                                                        </div>
+                                                    ) : (
+                                                        <SubTextAreaInput
+                                                            value={subResponses[globalIndex]?.[subIndex] || ''}
+                                                            placeholder='Responda Aqui...'
+                                                            onChange={(e) => handleSubChange(globalIndex, subIndex, e.target.value)}
+                                                        />
+                                                    )}
+                                                    {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
+                                                        <div style={{ marginBottom: '10px' }}>
+                                                            <ImportText>Pontos Principais:<br />
+                                                                •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
+                                                                •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
+                                                                •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
+                                                                •Política de avisar se for dar ruim</ImportText>
+                                                        </div>
+                                                    )}
+                                                </div>
 
-                                </QuestionTextWrapper>
-                                {isGeneratingPdf ? ( // Verifica se está gerando PDF
-                                    <ResponseGenerate>
-                                        <QuestionTextPDF>{responses[globalIndex]}</QuestionTextPDF>
-                                    </ResponseGenerate>
-                                ) : (
-                                    <TextAreaInput
-                                        placeholder='Responda Aqui...'
-                                        value={responses[globalIndex] || ''}
-                                        onChange={(e) => handleChange(globalIndex, e.target.value)}
-                                    />
-                                )}
-                                <SubQuestionBar>
-                                    <SubLeftBar />
-                                    <div style={{ width: '100%' }}>
-                                        {question.subQuestions && question.subQuestions.map((subQuestion, subIndex) => (
-                                            <div key={subIndex} >
-                                                {isGeneratingPdf ? (
-                                                    <QuestionText style={{ fontWeight: 700 }}>
-                                                        {subQuestion.text}
-                                                    </QuestionText>
-                                                ) : (
-                                                    <QuestionText>
-                                                        {subQuestion.text}
-                                                        {subQuestion.help === "" ? (null) : (
-                                                            <InfoButton onClick={() => handleOpenModal(subQuestion.help)}>i</InfoButton>
-                                                        )}
-                                                        {subQuestion.subinfo !== '' ? (
-                                                            <InfoText>{subQuestion.subinfo}</InfoText>
-                                                        ) : (null)}
-                                                    </QuestionText>
+                                            ))}</div></SubQuestionBar>
 
-                                                )}
-                                                {isGeneratingPdf ? ( // Verifica se está gerando PDF
-                                                    <div style={{ width: '500px', marginBottom: '10px' }}>
-                                                        <QuestionTextPDF>{subResponses[globalIndex]?.[subIndex]}</QuestionTextPDF>
-                                                    </div>
-                                                ) : (
-                                                    <SubTextAreaInput
-                                                        value={subResponses[globalIndex]?.[subIndex] || ''}
-                                                        placeholder='Responda Aqui...'
-                                                        onChange={(e) => handleSubChange(globalIndex, subIndex, e.target.value)}
-                                                    />
-                                                )}
-                                                {question.text === "Pergunta 5) Quais são seus objetivos de vida em longo e curto prazo?" && (
-                                                    <div style={{ marginBottom: '10px' }}>
-                                                        <ImportText>Pontos Principais:<br />
-                                                            •RG toda sexta 15h - 17h (inegociável), tem que ter um horário disponível na agenda<br />
-                                                            •Os horários são flexíveis, cada membro faz sua carga horária da forma que preferir<br />
-                                                            •A dinâmica de reuniões de cada squad é combinada dentro do próprio squad<br />
-                                                            •Política de avisar se for dar ruim</ImportText>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                        ))}</div></SubQuestionBar>
-
-</QuestionBlock>
+                                </QuestionBlock>
                             );
                         })}
                         {sectionIndex < Object.keys(groupedQuestions).length - 1 && <HorizontalDivider />}
